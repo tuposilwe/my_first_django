@@ -10,4 +10,5 @@ urlpatterns = [
     path('post',views.my_post,name='my_post'),
     path('submit',views.my_submit,name='my_submit'),
     path('submit_myform',views.form_submit,name='form_submit'),
+    path('templating',views.template_view,name='templating'),
 ]

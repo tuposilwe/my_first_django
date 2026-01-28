@@ -20,7 +20,7 @@ def my_redirect(request):
 def my_post(request):
     if request.method == 'POST':
         form = PersonForm(request.POST)
-        
+
         if form.is_valid():
             name = form.cleaned_data['name']
             age = form.cleaned_data['age']
@@ -35,6 +35,15 @@ def my_submit(request):
 def form_submit(request):
     form = PersonForm()
     return render(request,'app/form_submit.html',{'form':form})
+
+def template_view(request):
+    context = {
+        "name" : "mike",
+        "age": 30,
+        "skills": ["Python","Laravel","Django","React","K8s"]
+    }
+
+    return render(request,'app/mytempate.html',context)
 
 
 # Create your views here.
