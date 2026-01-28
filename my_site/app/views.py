@@ -7,4 +7,10 @@ def hello_world(request):
 def app(request):
     return render(request,'app/app.html')
 
+def username(request,name):
+    return HttpResponse(f'Hello {name}!')
+
+def user_query(request):
+    return HttpResponse(f'Your query was {request.GET.get("q")}')
+
 # Create your views here.
