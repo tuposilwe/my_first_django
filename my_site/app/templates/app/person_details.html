@@ -1,0 +1,16 @@
+{% extends 'app/base.html' %}
+{% block title %} {{person.name}} Details {% endblock%} 
+{%block content%}
+
+<h1>Hello {{person.name}}</h1>
+<h3>Your Apps</h3>
+
+<ul>
+  {% for app in person.apps.all %}
+  <li>
+    <b> {{ app.id }} - {{app.title}} </b>
+    ( IsVerified : {{ app.is_verified}} )
+  </li>
+  {% endfor %}
+</ul>
+{% endblock%}

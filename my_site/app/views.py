@@ -1,12 +1,13 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse,HttpResponseNotAllowed
-from .forms import PersonForm 
+from .forms import PersonForm ,AppForm
+from .models import App,Person
 
 def hello_world(request):
     return HttpResponse('Hello World')
 
-def app(request):
-    return render(request,'app/app.html')
+# def app(request):
+#     return render(request,'app/app.html')
 
 def username(request,name):
     return HttpResponse(f'Hello {name}!')
@@ -45,5 +46,36 @@ def template_view(request):
 
     return render(request,'app/mytempate.html',context)
 
+def app_view(request):
+    if request.method == 'POST':
+        form = AppForm(request.POST)
+
+        if form.is_valid():
+            app = form.save()
+            return HttpResponse('App successfully created!')
+    else:
+        form = AppForm()
+
+        apps = App.objects.all()
+
+        return render(request,'app/app.html', {'form':form,'apps': apps})
+
+def person_details(request, person_id):
+    person = Person.objects.filter(id=person_id).first()
+
+    return render('app/person_details.html',{'person': person})
+
+def delete_app(request,app_id):
+    app = App.objects.filter(id=app_id).first()
+    app.delete()
+
+    return HttpResponse('App successfully deleted!')
+
+def toggle_is_verified(request, app_id):
+    app = App.objects.filter(id=app_id).first()
+    app.is_verified = not app.is_verified
+    app.save()
+
+    return HttpResponse('App successfully updated!')
 
 # Create your views here.
