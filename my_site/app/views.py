@@ -63,7 +63,7 @@ def app_view(request):
 def person_details(request, person_id):
     person = Person.objects.filter(id=person_id).first()
 
-    return render('app/person_details.html',{'person': person})
+    return render(request,'app/person_details.html',{'person': person})
 
 def delete_app(request,app_id):
     app = App.objects.filter(id=app_id).first()
